@@ -1,0 +1,5 @@
+ponywall
+*.swp
+*.o
+*.pkg.tar.xz
+*.sh
