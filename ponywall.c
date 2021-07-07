@@ -130,7 +130,7 @@ void get_json_str(json_object *jimg, const char *field, char **data)
 	size_t len = strlen(str);
 	*data = (char *)malloc(len+1);
 	strcpy(*data, str);
-	json_object_put(jo);
+	//json_object_put(jo);   //may be its wrong
 }
 
 int download_wallp(char *wallp_url)
