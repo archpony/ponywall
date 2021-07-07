@@ -80,7 +80,7 @@ void parse_args(int argc, char *argv[])
 		switch (opt) {
 			case 'h':
 				fprintf(stderr, "Usage: %s [-s <screen size>] [-f]\
-						[-c <set wp command>] [-a] [-t <timeout seconds>]\n",
+ [-c <set wp command>] [-a] [-t <timeout seconds>]\n",
 						argv[0]);
 				exit(0);
 			case 'a':
