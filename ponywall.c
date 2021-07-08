@@ -188,7 +188,7 @@ void make_next_time(char *datestr)
 
 int is_expired(struct wpdata *config)
 {
-	if (config==NULL)
+	if (config==NULL||force_update)
 		return 1;
 	struct tm sdate = {0};
 	char *pres = strptime(config->lsd, DATE_FMT, &sdate);
@@ -280,7 +280,7 @@ int main(int argc, char **argv)
 	init_config();
 	struct wpdata *wpd = read_config();
 	
-	if (!is_expired(wpd)&&!force_update) {
+	if (!is_expired(wpd)&&!auto_mode) {
 		puts("Wallpaper is up to date");
 		return 0;
 	}
