@@ -259,12 +259,13 @@ int wp_request(struct wpdata *wpd)
 	res = download_wallp(wallp_url);
 	if (res!=0) return res;
 
-    exec_cmd();
-
 	wpd->url = wallp_url;
 	wpd->lsd = startdate;
 	save_config(wpd);
 	save_title(img_title);
+
+    exec_cmd();
+
 	free(img_url);
 	free(img_title);
 	free(startdate);
