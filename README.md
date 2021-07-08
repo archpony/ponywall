@@ -63,6 +63,5 @@ Use `PREFIX=` to install to the destination other than /usr/local/bin.
 * sudo make install
 
 ### Arch Linux
-* makepkg
-* sudo pacman -U &lt;package_name&gt;
+* makepkg -i
 
