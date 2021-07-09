@@ -13,7 +13,7 @@
 
 
 #define BING_COM "https://www.bing.com"
-#define BING_URL "https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=en-US"
+#define BING_URL_BASE "https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt="
 
 #define CFG_DIR     "ponywall"
 #define CFG_FILE    "pwall.dat"
@@ -22,6 +22,7 @@
 #define WP_CMD_DEF  "feh --bg-fill %s"
 #define DATE_FMT	"%Y%m%d%H%M"
 #define TIMEOUT_DEF  900
+#define MARKET_DEF  "en-US"
 
 struct wpdata {
 	char *url;
@@ -43,6 +44,7 @@ char *screen_res = NULL;
 int force_update = 0;
 int auto_mode = 0;
 int timeout = TIMEOUT_DEF;
+char *market = MARKET_DEF;
 
 void init_config();
 struct wpdata *read_config();
@@ -76,7 +78,7 @@ static size_t file_write(void *data, size_t size, size_t nmemb, void *stream)
 void parse_args(int argc, char *argv[])
 {
 	int opt;
-	while ((opt = getopt(argc, argv, "hfas:c:t:")) != -1) {
+	while ((opt = getopt(argc, argv, "hfas:c:t:m:")) != -1) {
 		switch (opt) {
 			case 'h':
 				fprintf(stderr, "Usage: %s [-s <screen size>] [-f]\
@@ -102,12 +104,17 @@ void parse_args(int argc, char *argv[])
 			case 'c':
 				WP_CMD = optarg;
 				break;
+			case 'm':
+				market = optarg;
+				break;
 		}
 	}
 }
 
 int get_wp_data(struct memory *chunk)
 {
+	char *BING_URL = malloc(strlen(BING_URL_BASE)+6); //5 chars for market
+	sprintf(BING_URL,"%s%s",BING_URL_BASE, market);
 	curl_easy_setopt(curl, CURLOPT_URL, BING_URL);
 	chunk->response = NULL;
 	chunk->size = 0;
@@ -115,6 +122,7 @@ int get_wp_data(struct memory *chunk)
 	curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)chunk);
 
 	res = curl_easy_perform(curl);
+	free(BING_URL);
 	if(res != CURLE_OK) {
 		fprintf(stderr, "curl_easy_perform() failed: %s\n",
 				curl_easy_strerror(res));
