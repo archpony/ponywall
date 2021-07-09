@@ -13,18 +13,22 @@ Programs:
 First, the programs reads wallpaper's expiration date from the config file. If the date is in the past, or the config file is absent, or the -f key was specified, the program requests current metadata from Bing site. Second, it downloads the wallpaper and saves the wallpaper's title into a file and a new expiration date into the config. Third, it executes a program to set the downloaded image as a wallpaper. The default command is <code>feh --bg-fill path/to/pwall.jpg</code>, it can be changed with a command line parameter.   
 
 ## Arguments
-**-s <screen size>**  The screen size format is WIDTHxHEIGHT, for example 1366x768. The program will try to download the current wallpaper from Bing using this size. Default and maximum value of 1920x1080 is used when this parameter is skipped.
-  
-**-f** Forces the program to update the wallpaper skipping the expiration date check. Doesn't work in auto mode.
-  
+**-a**  Turns on auto mode. The program will check every 15 minutes if the current wallpaper has expired and will download a new one when.
+
 **-c <command>**  Use the given command to set the wallpaper. You can use **%s** to substitute full path to wallpaper file.
 
-**-a**  Turns on auto mode. The program will check every 15 minutes if the current wallpaper has expired and will download a new one when.
-  
-**-t <seconds>**  Sets the check interval for auto mode.
+**-f** Forces the program to update the wallpaper skipping the expiration date check. Doesn't work in auto mode.
   
 **-h**  Prints some brief help.
 
+**-m <market>**	Sets the designation of the Bing market (e.g. de-DE, fr-FR, zh-CN, etc)
+
+**-M**	Sets auto market selection based on the LANG variable.
+
+**-s <screen size>**  The screen size format is WIDTHxHEIGHT, for example 1366x768. The program will try to download the current wallpaper from Bing using this size. Default and maximum value of 1920x1080 is used when this parameter is skipped.
+  
+**-t <seconds>**  Sets the check interval for auto mode.
+  
 ## Files
   All files are stored in the $XDG_CONFIG_HOME/ponywall directory. These files are:
   - pwall.dat An URL used to download the wallpaper and the expiration date.
