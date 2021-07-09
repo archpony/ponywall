@@ -75,14 +75,22 @@ static size_t file_write(void *data, size_t size, size_t nmemb, void *stream)
   return written;
 }
 
+void extract_market()
+{
+	char *lang = strdup(getenv("LANG"));
+    lang[2] = '-'; //change _ to -
+	lang[5] = '\0'; //cutoff the encoding;
+	market = lang;
+}
+
 void parse_args(int argc, char *argv[])
 {
 	int opt;
-	while ((opt = getopt(argc, argv, "hfas:c:t:m:")) != -1) {
+	while ((opt = getopt(argc, argv, "hfaMs:c:t:m:")) != -1) {
 		switch (opt) {
 			case 'h':
 				fprintf(stderr, "Usage: %s [-s <screen size>] [-f]\
- [-c <set wp command>] [-a] [-t <timeout seconds>]\n",
+ [-c <set wp command>] [-a] [-t <timeout seconds>] [-m <market>|-M]\n",
 						argv[0]);
 				exit(0);
 			case 'a':
@@ -106,6 +114,9 @@ void parse_args(int argc, char *argv[])
 				break;
 			case 'm':
 				market = optarg;
+				break;
+			case 'M':
+				extract_market();
 				break;
 		}
 	}

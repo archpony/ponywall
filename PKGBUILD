@@ -1,7 +1,7 @@
 # Maintainer: Arch Pony <archpony@rambler.ru>
 # Contributor: Arch Pony <archpony@rambler.ru>
 pkgname=ponywall
-pkgver=0.2
+pkgver=0.3
 pkgrel=1
 pkgdesc="Use daily Bing wallpaper with your favourite WM"
 arch=('x86_64')
